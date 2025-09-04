@@ -129,7 +129,8 @@ class ITAssetResource extends Resource
                         'Pending Paid' => 'Pending Paid',
                         'Paid' => 'Paid',
                     ])
-                    ->required(),
+                    ->required()
+                    ->columnSpanFull(),
                 Textarea::make('asset_notes')
                     ->label('History/Notes')
                     ->maxLength(500)
