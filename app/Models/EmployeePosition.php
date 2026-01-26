@@ -22,6 +22,7 @@ class EmployeePosition extends Model
     {
         return $this->hasMany(Employee::class, 'position_id');
     }
+
     public function usageHistories()
     {
         return $this->hasMany(ITAssetUsageHistory::class, 'position_id');

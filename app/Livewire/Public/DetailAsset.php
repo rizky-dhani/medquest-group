@@ -3,17 +3,21 @@
 namespace App\Livewire\Public;
 
 use App\Models\ITAsset;
-use Livewire\Component;
-use Livewire\Attributes\Title;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
 
 class DetailAsset extends Component
 {
-    public $asset, $assetId;
+    public $asset;
+
+    public $assetId;
+
     public function mount($assetId)
     {
         $this->asset = ITAsset::where('assetId', $assetId)->first();
     }
+
     #[Title('Detail Asset')]
     #[Layout('components.layouts.public')]
     public function render()

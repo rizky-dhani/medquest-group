@@ -2,30 +2,24 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Resources\ITAssetResource;
-use App\Filament\Resources\ITAssetUsageHistoryResource;
-use App\Models\ITAssetUsageHistory;
-use Filament\Pages;
-use Filament\Panel;
-use Filament\Widgets;
-use Filament\PanelProvider;
+use App\Filament\Resources\ITD\ITAssets\Widgets\ITAssetWidget;
 use Filament\Enums\ThemeMode;
-use Filament\Navigation\MenuItem;
-use Filament\Support\Colors\Color;
-use Filament\Navigation\NavigationItem;
-use Filament\Navigation\NavigationGroup;
 use Filament\Http\Middleware\Authenticate;
-use Illuminate\Session\Middleware\StartSession;
-use Illuminate\Cookie\Middleware\EncryptCookies;
 use Filament\Http\Middleware\AuthenticateSession;
-use Illuminate\Routing\Middleware\SubstituteBindings;
-use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Filament\Navigation\MenuItem;
+use Filament\Navigation\NavigationGroup;
+use Filament\Pages;
+use Filament\Panel;
+use Filament\PanelProvider;
+use Filament\Support\Colors\Color;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
-use App\Filament\Resources\ITD\ITAssetResource\Widgets\ITAssetWidget;
-use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
+use Illuminate\Cookie\Middleware\EncryptCookies;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Illuminate\Routing\Middleware\SubstituteBindings;
+use Illuminate\Session\Middleware\StartSession;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -43,7 +37,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogoHeight('2rem')
             ->favicon(asset('assets/images/Medquest-Favicon.png'))
             ->userMenuItems([
-                'profile' => MenuItem::make()->label('Edit Profile')
+                'profile' => MenuItem::make()->label('Edit Profile'),
             ])
             ->colors([
                 'primary' => Color::Blue,
@@ -52,10 +46,7 @@ class AdminPanelProvider extends PanelProvider
                 NavigationGroup::make()
                     ->label(' ITD'),
                 NavigationGroup::make()
-                    ->label('User Management')
-            ])
-            ->plugins([
-                FilamentSpatieRolesPermissionsPlugin::make()
+                    ->label('User Management'),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')

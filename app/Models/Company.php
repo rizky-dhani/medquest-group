@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Company extends Model
 {
     protected $guarded = ['id'];
+
     public function usageHistory()
     {
         return $this->hasMany(ITAssetUsageHistory::class);

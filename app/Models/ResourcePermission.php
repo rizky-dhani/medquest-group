@@ -9,7 +9,7 @@ class ResourcePermission extends Model
 {
     protected $fillable = [
         'resource_name',
-        'permissionId'
+        'permissionId',
     ];
 
     public function roles()

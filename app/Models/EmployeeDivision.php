@@ -12,14 +12,17 @@ class EmployeeDivision extends Model
     {
         return 'divisionId';
     }
+
     public function department()
     {
         return $this->belongsTo(EmployeeDepartment::class, 'department_id');
     }
+
     public function employees()
     {
         return $this->hasMany(Employee::class, 'division_id');
     }
+
     public function usageHistories()
     {
         return $this->hasMany(ITAssetUsageHistory::class, 'division_id');
