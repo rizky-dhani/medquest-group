@@ -20,6 +20,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Filament\Support\Enums\Width;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -32,6 +33,7 @@ class AdminPanelProvider extends PanelProvider
             ->spa()
             ->login()
             ->profile()
+            ->simplePageMaxContentWidth(Width::Small)
             ->defaultThemeMode(ThemeMode::Light)
             ->brandLogo(asset('assets/images/LOGO-MEDQUEST.png'))
             ->brandLogoHeight('2rem')
