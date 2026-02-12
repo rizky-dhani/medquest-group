@@ -34,7 +34,6 @@ class AdminPanelProvider extends PanelProvider
             ->spa()
             ->login()
             ->profile()
-            ->simplePageMaxContentWidth(Width::Small)
             ->defaultThemeMode(ThemeMode::Light)
             ->brandLogo(asset('assets/images/LOGO-MEDQUEST.png'))
             ->brandLogoHeight('2rem')
