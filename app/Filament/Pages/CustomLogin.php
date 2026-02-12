@@ -3,14 +3,13 @@
 namespace App\Filament\Pages;
 
 use Filament\Auth\Pages\Login as BaseLogin;
+use Filament\Support\Enums\Width;
 
 class CustomLogin extends BaseLogin
 {
-    protected ?string $heading = null;
-
-    public function getHeading(): string
+    public function getMaxContentWidth(): Width | string | null
     {
-        return '';
+        return Width::ExtraSmall;
     }
 
     public function mount(): void
