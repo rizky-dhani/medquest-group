@@ -32,7 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('/')
             ->spa()
-            ->login(CustomLogin::class)
+            ->login()
             ->profile()
             ->simplePageMaxContentWidth(Width::Small)
             ->defaultThemeMode(ThemeMode::Light)
