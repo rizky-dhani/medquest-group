@@ -5,7 +5,7 @@ use App\Models\ITAsset;
 use Illuminate\Support\Facades\Route;
 use Spatie\Browsershot\Browsershot;
 
-Route::get('/', fn () => redirect()->route('dashboard'));
+Route::get('/', fn () => redirect('/dashboard'));
 
 Route::get('public/it-assets/details/{assetId}', DetailAsset::class)
     ->name('assets.show');
