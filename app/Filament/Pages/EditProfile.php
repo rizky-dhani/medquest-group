@@ -16,8 +16,6 @@ class EditProfile extends Page
 
     protected string $view = 'filament.pages.edit-profile';
 
-    protected static ?MaxWidth $maxWidth = MaxWidth::TwoExtraLarge;
-
     public ?array $data = [];
 
     public function mount(): void
