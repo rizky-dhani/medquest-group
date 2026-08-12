@@ -135,6 +135,33 @@ class ITAssetTable
                             return redirect()->route('assets.bulk-export-pdf.export');
                         })
                         ->deselectRecordsAfterCompletion(),
+                    Actions\BulkAction::make('regenerate_qr')
+                        ->label('Regenerate QR Code')
+                        ->icon('heroicon-o-qr-code')
+                        ->color('warning')
+                        ->requiresConfirmation()
+                        ->modalHeading('Regenerate QR Codes')
+                        ->modalDescription('This will overwrite existing QR codes for selected assets.')
+                        ->action(function ($records) {
+                            $qr = new \Milon\Barcode\DNS2D;
+                            $regenerated = 0;
+
+                            foreach ($records as $record) {
+                                $route = route('assets.show', ['assetId' => $record->assetId]);
+                                $qrImage = base64_decode($qr->getBarcodePNG($route, 'QRCODE,H'));
+                                $path = 'assets/'.$record->assetId.'.png';
+
+                                \Storage::disk('public')->put($path, $qrImage);
+                                $record->update(['barcode' => $path]);
+                                $regenerated++;
+                            }
+
+                            \Filament\Notifications\Notification::make()
+                                ->title("{$regenerated} QR code(s) regenerated.")
+                                ->success()
+                                ->send();
+                        })
+                        ->deselectRecordsAfterCompletion(),
                 ]),
             ]);
     }
