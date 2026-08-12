@@ -5,13 +5,27 @@ namespace App\Filament\Pages;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
-use Filament\Pages\Auth\EditProfile as BaseEditProfile;
+use Filament\Pages\Page;
 
-class EditProfile extends BaseEditProfile
+class EditProfile extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-user-circle';
 
     protected static ?string $title = 'Edit Profile';
+
+    protected static string $view = 'filament.pages.edit-profile';
+
+    public ?array $data = [];
+
+    public function mount(): void
+    {
+        $user = auth()->user();
+
+        $this->form->fill([
+            'name' => $user->name,
+            'email' => $user->email,
+        ]);
+    }
 
     public function form(Form $form): Form
     {
@@ -32,20 +46,25 @@ class EditProfile extends BaseEditProfile
 
                 Forms\Components\Section::make('Employee Information')
                     ->schema([
-                        Forms\Components\TextInput::make('employee.name')
+                        Forms\Components\TextInput::make('employee_name')
                             ->label('Employee Name')
+                            ->default(fn () => auth()->user()->employee?->name ?? 'N/A')
                             ->disabled(),
-                        Forms\Components\TextInput::make('employee.initial')
+                        Forms\Components\TextInput::make('employee_initial')
                             ->label('Initial')
+                            ->default(fn () => auth()->user()->employee?->initial ?? 'N/A')
                             ->disabled(),
-                        Forms\Components\TextInput::make('employee.employee_number')
+                        Forms\Components\TextInput::make('employee_number')
                             ->label('Employee Number')
+                            ->default(fn () => auth()->user()->employee?->employee_number ?? 'N/A')
                             ->disabled(),
-                        Forms\Components\TextInput::make('employee.division.name')
+                        Forms\Components\TextInput::make('division_name')
                             ->label('Division')
+                            ->default(fn () => auth()->user()->employee?->division?->name ?? 'N/A')
                             ->disabled(),
-                        Forms\Components\TextInput::make('employee.position.name')
+                        Forms\Components\TextInput::make('position_name')
                             ->label('Position')
+                            ->default(fn () => auth()->user()->employee?->position?->name ?? 'N/A')
                             ->disabled(),
                     ])->columns(3),
 
@@ -66,19 +85,21 @@ class EditProfile extends BaseEditProfile
                             ->maxLength(255)
                             ->same('password'),
                     ])->columns(2),
-            ]);
+            ])
+            ->statePath('data');
     }
 
     public function save(): void
     {
         $data = $this->form->getState();
 
-        $user = $this->getUser();
+        $user = auth()->user();
 
-        $user->update($data);
-
-        $this->data['password'] = null;
-        $this->data['password_confirmation'] = null;
+        $user->update([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => $data['password'] ?? $user->password,
+        ]);
 
         Notification::make()
             ->title('Profile updated successfully.')
