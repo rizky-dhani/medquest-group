@@ -40,7 +40,9 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogoHeight('2rem')
             ->favicon(asset('assets/images/Medquest-Favicon.png'))
             ->userMenuItems([
-                'profile' => MenuItem::make()->label('Edit Profile'),
+                MenuItem::make()
+                    ->label('Edit Profile')
+                    ->url(fn () => filament()->getProfileUrl()),
             ])
             ->colors([
                 'primary' => Color::Blue,
