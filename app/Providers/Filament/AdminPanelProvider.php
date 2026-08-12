@@ -34,13 +34,15 @@ class AdminPanelProvider extends PanelProvider
             ->spa()
             ->maxContentWidth(Width::Full)
             ->login()
-            ->profile()
             ->defaultThemeMode(ThemeMode::Light)
             ->brandLogo(asset('assets/images/LOGO-MEDQUEST.png'))
             ->brandLogoHeight('2rem')
             ->favicon(asset('assets/images/Medquest-Favicon.png'))
             ->userMenuItems([
-                'profile' => MenuItem::make()->label('Edit Profile'),
+                MenuItem::make()
+                    ->label('Edit Profile')
+                    ->icon('heroicon-o-user-circle')
+                    ->url(\App\Filament\Pages\EditProfile::getUrl()),
             ])
             ->colors([
                 'primary' => Color::Blue,
