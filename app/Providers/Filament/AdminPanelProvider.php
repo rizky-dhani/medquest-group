@@ -2,7 +2,7 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Pages\EditProfile;
+use App\Filament\Pages\CustomLogin;
 use App\Filament\Resources\ITD\ITAssets\Widgets\ITAssetWidget;
 use Filament\Enums\ThemeMode;
 use Filament\Http\Middleware\Authenticate;
@@ -34,7 +34,7 @@ class AdminPanelProvider extends PanelProvider
             ->spa()
             ->maxContentWidth(Width::Full)
             ->login()
-            ->profile(EditProfile::class)
+            ->profile()
             ->defaultThemeMode(ThemeMode::Light)
             ->brandLogo(asset('assets/images/LOGO-MEDQUEST.png'))
             ->brandLogoHeight('2rem')
