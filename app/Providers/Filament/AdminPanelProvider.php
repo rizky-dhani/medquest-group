@@ -32,6 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('dashboard')
             ->spa()
+            ->maxContentWidth(Width::Full)
             ->login()
             ->profile()
             ->defaultThemeMode(ThemeMode::Light)
