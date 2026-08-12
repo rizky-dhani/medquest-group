@@ -3,9 +3,10 @@
 namespace App\Filament\Pages;
 
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Filament\Schemas\Schema;
+use Filament\Support\Enums\MaxWidth;
 
 class EditProfile extends Page
 {
@@ -15,22 +16,26 @@ class EditProfile extends Page
 
     protected string $view = 'filament.pages.edit-profile';
 
+    protected static ?MaxWidth $maxWidth = MaxWidth::TwoExtraLarge;
+
     public ?array $data = [];
 
     public function mount(): void
     {
         $user = auth()->user();
 
-        $this->form->fill([
+        $this->data = [
             'name' => $user->name,
             'email' => $user->email,
-        ]);
+        ];
     }
 
-    public function form(Form $form): Form
+    public function content(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        $user = auth()->user();
+
+        return $schema
+            ->components([
                 Forms\Components\Section::make('Account Information')
                     ->schema([
                         Forms\Components\TextInput::make('name')
@@ -48,23 +53,23 @@ class EditProfile extends Page
                     ->schema([
                         Forms\Components\TextInput::make('employee_name')
                             ->label('Employee Name')
-                            ->default(fn () => auth()->user()->employee?->name ?? 'N/A')
+                            ->default($user->employee?->name ?? 'N/A')
                             ->disabled(),
                         Forms\Components\TextInput::make('employee_initial')
                             ->label('Initial')
-                            ->default(fn () => auth()->user()->employee?->initial ?? 'N/A')
+                            ->default($user->employee?->initial ?? 'N/A')
                             ->disabled(),
                         Forms\Components\TextInput::make('employee_number')
                             ->label('Employee Number')
-                            ->default(fn () => auth()->user()->employee?->employee_number ?? 'N/A')
+                            ->default($user->employee?->employee_number ?? 'N/A')
                             ->disabled(),
                         Forms\Components\TextInput::make('division_name')
                             ->label('Division')
-                            ->default(fn () => auth()->user()->employee?->division?->name ?? 'N/A')
+                            ->default($user->employee?->division?->name ?? 'N/A')
                             ->disabled(),
                         Forms\Components\TextInput::make('position_name')
                             ->label('Position')
-                            ->default(fn () => auth()->user()->employee?->position?->name ?? 'N/A')
+                            ->default($user->employee?->position?->name ?? 'N/A')
                             ->disabled(),
                     ])->columns(3),
 
@@ -85,13 +90,12 @@ class EditProfile extends Page
                             ->maxLength(255)
                             ->same('password'),
                     ])->columns(2),
-            ])
-            ->statePath('data');
+            ]);
     }
 
     public function save(): void
     {
-        $data = $this->form->getState();
+        $data = $this->data;
 
         $user = auth()->user();
 

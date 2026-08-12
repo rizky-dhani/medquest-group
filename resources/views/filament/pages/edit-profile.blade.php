@@ -1,6 +1,6 @@
 <x-filament-panels::page>
     <form wire:submit="save">
-        {{ $this->form }}
+        {{ $this->content }}
 
         <div class="mt-6">
             <x-filament::button type="submit">
