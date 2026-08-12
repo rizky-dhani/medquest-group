@@ -106,21 +106,18 @@ class ITAssetTable
                     }),
             ])
             ->recordActions([
-                Actions\ActionGroup::make([
-                    Actions\Action::make('Detail')
-                        ->label('Detail')
-                        ->color('warning')
-                        ->icon('heroicon-o-information-circle')
-                        ->url(fn ($record) => route('assets.show', ['assetId' => $record->assetId]))
-                        ->openUrlInNewTab(),
-                    Actions\ViewAction::make(),
-                    Actions\EditAction::make(),
-                    Actions\DeleteAction::make()
-                        ->modalHeading('Delete Asset')
-                        ->successNotificationTitle('Asset deleted successfully.')
-                        ->requiresConfirmation(),
-                ])
-                    ->icon('heroicon-m-ellipsis-horizontal'),
+                Actions\Action::make('Detail')
+                    ->label('Detail')
+                    ->color('warning')
+                    ->icon('heroicon-o-information-circle')
+                    ->url(fn ($record) => route('assets.show', ['assetId' => $record->assetId]))
+                    ->openUrlInNewTab(),
+                Actions\ViewAction::make(),
+                Actions\EditAction::make(),
+                Actions\DeleteAction::make()
+                    ->modalHeading('Delete Asset')
+                    ->successNotificationTitle('Asset deleted successfully.')
+                    ->requiresConfirmation(),
             ])
             ->toolbarActions([
                 Actions\BulkActionGroup::make([
