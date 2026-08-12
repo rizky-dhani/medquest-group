@@ -9,7 +9,7 @@ use Filament\Pages\Page;
 
 class EditProfile extends Page
 {
-    protected static ?string $navigationIcon = 'heroicon-o-user-circle';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-user-circle';
 
     protected static ?string $title = 'Edit Profile';
 
