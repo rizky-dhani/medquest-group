@@ -42,7 +42,7 @@ class AdminPanelProvider extends PanelProvider
                 MenuItem::make()
                     ->label('Edit Profile')
                     ->icon('heroicon-o-user-circle')
-                    ->url(\App\Filament\Pages\EditProfile::getUrl()),
+                    ->url(fn () => \App\Filament\Pages\EditProfile::getUrl()),
             ])
             ->colors([
                 'primary' => Color::Blue,
