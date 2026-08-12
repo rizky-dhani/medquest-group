@@ -16,6 +16,7 @@ Route::get('/assets/bulk-export-pdf/export', function () {
     $html = view('pdf.assets-list', compact('assets'));
     $filename = 'IT-ASSETS-'.now()->format('Y-m-d').'.pdf';
     $pdf = Browsershot::html($html)
+        ->setChromePath('/usr/bin/google-chrome')
         ->format('A4')
         ->showBackground()
         ->pdf();
